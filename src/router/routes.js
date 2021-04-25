@@ -55,13 +55,7 @@ export default [
     component: () => import('@/views/articles/Create'),
     meta: { auth: true }
   },
-  // // Content
-  // {
-  //   path: '/articles/:articleId/content',
-  //   name: 'Content',
-  //   component: () => import('@/views/articles/Content.vue')
-  // },
-
+  
   // Edit
   {
     path: '/articles/:articleId/edit',
@@ -69,7 +63,8 @@ export default [
     component: () => import('@/views/articles/Create'),
     meta: { auth: true }
   },
-  // 为
+
+ // 为
 {
   path: '/:user',
   component: () => import('@/views/articles/Column'),
