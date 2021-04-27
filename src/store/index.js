@@ -8,8 +8,8 @@ Vue.use(Vuex)
 
 const state = {
   user: ls.getItem('user'),
-  // 添加 auth 来保存当前用户的登录状态
   auth: ls.getItem('auth'),
+  // 所有文章状态
   articles: ls.getItem('articles')
 }
 
@@ -18,7 +18,6 @@ const mutations = {
     state.user = user
     ls.setItem('user', user)
   },
-  // 添加 UPDATE_AUTH 来更改当前用户的登录状态
   UPDATE_AUTH(state, auth) {
     state.auth = auth
     ls.setItem('auth', auth)
@@ -56,7 +55,6 @@ const actions = {
    ...moreActions
 }
 
-
 // 添加 getters
 const getters = {
   getArticleById: (state) => (id) => {
@@ -71,12 +69,11 @@ const getters = {
   }
 }
 
-
-
 const store = new Vuex.Store({
   state,
-  mutations,
+  // 注册 getters
   getters,
+  mutations,
   actions
 })
 
