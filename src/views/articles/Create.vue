@@ -3,7 +3,7 @@
     <div class="blog-pages">
       <div class="col-md-12 panel">
         <div class="panel-body">
-          <h2 class="text-center">创作文章</h2>
+          <h2 class="text-center">{{ articleId ? "编辑文章" : "创作文章" }}</h2>
           <hr />
           <div data-validator-form>
             <div class="form-group">
@@ -45,7 +45,9 @@ export default {
   },
   beforeRouteEnter(to, from, next) {
     next((vm) => {
-      vm.setArticleId(vm.$route.params.articleId);
+      vm.$nextTick().then(() => {
+        vm.setArticleId(vm.$route.params.articleId);
+      });
     });
   },
   beforeRouteLeave(to, from, next) {
@@ -59,6 +61,7 @@ export default {
     },
   },
   mounted() {
+    console.log("simplemde");
     const simplemde = new SimpleMDE({
       element: document.querySelector("#editor"),
       placeholder:

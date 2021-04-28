@@ -73,6 +73,7 @@ export default {
   },
   methods: {
     editArticle() {
+    console.log(this.articleId)
       this.$router.push({
         name: "Edit",
         params: { articleId: this.articleId },
