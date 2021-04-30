@@ -29,6 +29,8 @@
         </ul>
         <!-- 入口组件 -->
         <div class="navbar-right">
+          <!-- 搜索框 -->
+          <SearchInput />
           <TheEntry />
         </div>
       </div>
@@ -37,11 +39,16 @@
 </template>
 
 <script>
-import TheEntry from "@/components/layouts/TheEntry";
+import TheEntry from '@/components/layouts/TheEntry'
+// 引入 SearchInput.vue 默认值
+import SearchInput from '@/components/layouts/SearchInput'
+
 export default {
-  name: "TheHeader",
+  name: 'TheHeader',
   components: {
     TheEntry,
+    // 注册 SearchInput
+    SearchInput
   },
   data() {
     return {

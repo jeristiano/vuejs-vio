@@ -4,14 +4,22 @@ import ls from '../utils/localStorage'
 import router from '../router'
 // 引入 actions.js 的所有导出
 import * as moreActions from './actions'
+import * as moreGetters from './getters'
+
 Vue.use(Vuex)
+
+
 
 const state = {
   user: ls.getItem('user'),
   auth: ls.getItem('auth'),
-  // 所有文章状态
-  articles: ls.getItem('articles')
+  articles: ls.getItem('articles'),
+  searchValue: '',
+  // 默认为 location.origin
+  origin: location.origin
 }
+
+
 
 const mutations = {
   UPDATE_USER(state, user) {
@@ -22,10 +30,13 @@ const mutations = {
     state.auth = auth
     ls.setItem('auth', auth)
   },
-  // 更改所有文章的事件类型
   UPDATE_ARTICLES(state, articles) {
     state.articles = articles
     ls.setItem('articles', articles)
+  },
+  // 更新搜索值的事件类型
+  UPDATE_SEARCH_VALUE(state, searchValue) {
+    state.searchValue = searchValue
   }
 }
 
@@ -55,10 +66,10 @@ const actions = {
    ...moreActions
 }
 
-// 添加 getters
 const getters = {
-  getArticleById: (state) => (id) => {
-    let articles = state.articles
+  getArticleById: (state, getters) => (id) => {
+    // 使用派生状态 computedArticles 作为所有文章
+    let articles = getters.computedArticles
 
     if (Array.isArray(articles)) {
       articles = articles.filter(article => parseInt(id) === parseInt(article.articleId))
@@ -66,7 +77,9 @@ const getters = {
     } else {
       return null
     }
-  }
+  },
+  // 混入 moreGetters, 你可以理解为 getters = Object.assign(getters, moreGetters)
+  ...moreGetters
 }
 
 const store = new Vuex.Store({
@@ -76,5 +89,7 @@ const store = new Vuex.Store({
   mutations,
   actions
 })
+
+
 
 export default store
